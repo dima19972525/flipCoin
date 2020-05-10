@@ -28,7 +28,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.(obj|stl)$/i,
+                test: /\.(obj|stl|fbx|jpg)$/i,
                 use: [
                     {
                         loader: 'file-loader',
