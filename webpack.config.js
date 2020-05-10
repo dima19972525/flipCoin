@@ -27,6 +27,14 @@ module.exports = {
                     },
                 },
             },
+            {
+                test: /\.(obj|stl)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+            },
         ],
     },
 };
