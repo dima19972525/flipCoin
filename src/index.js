@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 import * as settings from './settings.js';
 import { OBJLoader } from 'three-obj-mtl-loader';
-import { Interaction } from 'three.interaction';
-import Quaternion from 'quaternion';
 import _coin from './coin.obj';
 import _texture from './texture.jpg';
 import state from './state';
@@ -18,8 +16,6 @@ const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(settings.width, settings.height);
 
-const interaction = new Interaction(renderer, scene, camera);
-
 document.getElementById('content').append(renderer.domElement);
 
 const light = new THREE.SpotLight(0xffffff, 1, 1000);
@@ -30,8 +26,6 @@ scene.add(light);
 const objLoader = new OBJLoader();
 
 let COIN = null;
-let _x = 0;
-let _y = 0;
 
 objLoader.load(_coin, (coin) => {
     COIN = coin;
@@ -43,7 +37,6 @@ objLoader.load(_coin, (coin) => {
     });
 
     coin.cursor = 'pointer';
-
     coin.position.z = -3;
 
     coin.scale.set(coin.scale.x / 15, coin.scale.y / 15, coin.scale.z / 15);

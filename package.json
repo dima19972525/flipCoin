@@ -10,11 +10,8 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "quaternion": "^1.1.0",
         "three": "^0.116.1",
-        "three-obj-mtl-loader": "^1.0.3",
-        "three-vrml-loader": "^1.1.0",
-        "three.interaction": "^0.2.2"
+        "three-obj-mtl-loader": "^1.0.3"
     },
     "devDependencies": {
         "@babel/core": "^7.9.6",
