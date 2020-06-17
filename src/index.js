@@ -1,7 +1,5 @@
 import * as THREE from 'three';
-import * as settings from './settings.js';
 import { OBJLoader } from 'three-obj-mtl-loader';
-import state from './state';
 
 export class Object3D {
     /* 
@@ -42,17 +40,18 @@ export class Object3D {
     };
 
     _initGlobalObjects(config) {
+        this._elem = config.elem;
         this._scene = new THREE.Scene();
+        console.log(this._elem.clientWidth, this._elem.clientHeight);
         this._camera = new THREE.PerspectiveCamera(
             75,
-            settings.width / settings.height,
+            this._elem.clientWidth / this._elem.clientHeight,
             0.1,
             1000,
         );
         this._renderer = new THREE.WebGLRenderer();
-        this._renderer.setSize(settings.width, settings.height);
+        this._renderer.setSize(this._elem.clientWidth, this._elem.clientHeight);
 
-        this._elem = config.elem;
         this._elem.append(this._renderer.domElement);
 
         this._initLight({ color: config.lightColor });
