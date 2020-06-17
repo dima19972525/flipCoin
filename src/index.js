@@ -23,7 +23,7 @@ export class Object3D {
 
     _config = {
         lightColor: 0xffffff,
-        zPos: -1,
+        zPos: -3,
         scaleValue: 15,
     };
 
@@ -67,42 +67,42 @@ export class Object3D {
         this._scene.add(this._light);
     }
 
-    _loadTexture(model) {
-        const texture = new THREE.TextureLoader().load(texture);
+    _loadTexture(model, texture) {
+        const _texture = new THREE.TextureLoader().load(texture);
         model.traverse(function (child) {
             if (child instanceof THREE.Mesh) {
-                child.material.map = texture;
+                child.material.map = _texture;
             }
         });
     }
 
     _loop() {
-        requestAnimationFrame(this._loop);
+        requestAnimationFrame(() => this._loop());
 
         this._renderer.render(this._scene, this._camera);
     }
 
-    loadModel({ objModel, texture }, callback) {
-        this._objLoader.load(objModel, (model) => {
-            this.MODEL = model;
+    loadModel({ model, texture }, callback) {
+        this._objLoader.load(model, (_model) => {
+            this.MODEL = _model;
             if (texture) {
-                this._loadTexture(texture);
+                this._loadTexture(this.MODEL, texture);
             }
 
-            model.cursor = 'pointer';
-            model.position.z = this._config.zPos;
+            this.MODEL.cursor = 'pointer';
+            this.MODEL.position.z = this._config.zPos;
 
-            model.scale.set(
-                model.scale.x / this._config.scaleValue,
-                model.scale.y / this._config.scaleValue,
-                model.scale.z / this._config.scaleValue,
+            this.MODEL.scale.set(
+                this.MODEL.scale.x / this._config.scaleValue,
+                this.MODEL.scale.y / this._config.scaleValue,
+                this.MODEL.scale.z / this._config.scaleValue,
             );
 
-            this._scene.add(model);
+            this._scene.add(this.MODEL);
 
             this._elem.addEventListener('mouseup', () => {
                 event.preventDefault();
-                state.isMove = false;
+                this._state.isMove = false;
             });
             this._elem.addEventListener('mouseout', () => {
                 event.preventDefault();
@@ -119,8 +119,8 @@ export class Object3D {
             this._elem.addEventListener('mousemove', (event) => {
                 event.preventDefault();
                 if (this._state.isMove) {
-                    const deltaX = event.clientX - state.lastScreenX;
-                    const deltaY = event.clientY - state.lastScreenY;
+                    const deltaX = event.clientX - this._state.lastScreenX;
+                    const deltaY = event.clientY - this._state.lastScreenY;
                     this.MODEL.rotation.y += deltaX / 100;
                     this.MODEL.rotation.x += deltaY / 100;
                     this._state.lastScreenX = event.clientX;

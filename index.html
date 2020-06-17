@@ -6,5 +6,16 @@
     </head>
     <body>
         <div id="content"></div>
+        <script>
+            window.onload = function () {
+                const obj = new EntryPoint.Object3D({
+                    elem: document.getElementById('content'),
+                });
+                obj.loadModel({
+                    model: './coin copy.obj',
+                    texture: './texture copy.jpg',
+                });
+            };
+        </script>
     </body>
 </html>
