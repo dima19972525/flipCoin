@@ -8,7 +8,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.join(__dirname, 'build'),
         libraryTarget: 'var',
-        library: 'EntryPoint',
+        library: 'Model',
     },
     devServer: {
         contentBase: './build',
